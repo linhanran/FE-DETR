@@ -1,0 +1,60 @@
+task: detection
+
+evaluator:
+  type: CocoEvaluator
+  iou_types: ['bbox', ]
+
+# num_classes: 1 # your dataset classes
+num_classes: 10 # your dataset classes
+remap_mscoco_category: False
+
+train_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /public/home/linhanran2023/ultralytics-main1/dataset/LEVIR-Ship/train/images/train2017
+    ann_file: /public/home/linhanran2023/ultralytics-main1/dataset/LEVIR-Ship/train/instances_train2017.json
+    return_masks: False
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: True
+  num_workers: 4
+  drop_last: True
+  pin_memory: True
+  collate_fn:
+    type: BatchImageCollateFunction
+
+val_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /public/home/linhanran2023/ultralytics-main1/dataset/LEVIR-Ship/val/images/val2017
+    ann_file: /public/home/linhanran2023/ultralytics-main1/dataset/LEVIR-Ship/val/instances_val2017.json
+    return_masks: False
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: False
+  num_workers: 4
+  drop_last: False
+  pin_memory: True
+  collate_fn:
+    type: BatchImageCollateFunction
+
+# val_dataloader:
+#   type: DataLoader
+#   dataset:
+#     type: CocoDetection
+#     img_folder: /public/home/linhanran2023/ultralytics-main1/dataset/LEVIR-Ship/test/images/test2017
+#     ann_file: /public/home/linhanran2023/ultralytics-main1/dataset/LEVIR-Ship/test/instances_test2017.json
+#     return_masks: False
+#     transforms:
+#       type: Compose
+#       ops: ~
+#   shuffle: False
+#   num_workers: 4
+#   drop_last: False
+#   pin_memory: True
+#   collate_fn:
+#     type: BatchImageCollateFunction
