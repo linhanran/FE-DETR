@@ -32,7 +32,6 @@ class HybridEncoder_QEPOLA(HybridEncoder):
                          enc_act, use_encoder_idx, num_encoder_layers, pe_temperature, expansion,
                          depth_mult, act, eval_spatial_size, version)
 
-        # 替换 encoder：移除 hw 参数
         self.encoder = nn.ModuleList([
             QEPolaLinearAttention(hidden_dim, num_heads=nhead)
             for _ in range(len(use_encoder_idx))
